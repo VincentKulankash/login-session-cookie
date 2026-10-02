@@ -13,3 +13,14 @@ from flask import (
 from werkzeug.security import generate_password_hash, check_password_hash
 
 import db 
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('login.html')
+
+if __name__ == ('__main__'):
+    app.run(debug=True, port=5001)
+    
+     

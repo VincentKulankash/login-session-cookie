@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your page remember me App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body class="theme-light font-medium focus-standard" id="userPage">
+
+    <main class="user-container">
+
+    <header class="user-header">
+      <h1>Welcome, {{ username }}</h1>
+      <button id="logoutButton" class="danger">Log out</button>
+    </header>
+
+    <div id="message" class="message hidden"></div>
+
+    <!-- SESSION (this visit) -->
+    <section class="panel">
+      <h2>This session</h2>
+      <ul>
+        <li>Visits this session: <strong id="sessionVisits">—</strong></li>
+        <li>Logged in at: <strong id="sessionLoggedInAt">—</strong></li>
+      </ul>
+    </section>
+
+    <!-- ACCOUNT (persistent) -->
+    <section class="panel">
+      <h2>Your account</h2>
+      <ul>
+        <li>Member since: <strong id="accountMemberSince">—</strong></li>
+        <li>Total logins: <strong id="accountTotalLogins">—</strong></li>
+        <li>Last login: <strong id="accountLastLogin">—</strong></li>
+        <li>Remembered devices: <strong id="accountDevices">—</strong></li>
+      </ul>
+    </section>
+
+    <!-- PREFERENCES -->
+    <section class="panel">
+      <h2>Preferences</h2>
+      <form id="preferencesForm">
+        <label for="themeSelect">Theme</label>
+        <select id="themeSelect">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+
+        <label for="focusSelect">Focus mode</label>
+        <select id="focusSelect">
+          <option value="standard">Standard</option>
+          <option value="deep">Deep</option>
+          <option value="revision">Revision</option>
+          <option value="practice">Practice</option>
+        </select>
+
+        <label for="fontSelect">Font size</label>
+        <select id="fontSelect">
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
+
+        <button type="submit">Save preferences</button>
+      </form>
+    </section>
+
+    <!-- RECENT ACTIVITY -->
+    <section class="panel">
+      <h2>Recent activity</h2>
+      <ul id="activityList"></ul>
+    </section>
+
+    <!-- COOKIE INSPECTOR (educational) -->
+    <section class="panel">
+      <h2>Cookies visible to JavaScript</h2>
+      <pre id="cookieInspector">—</pre>
+      <p class="hint">
+        Note: <code>session</code> and <code>remember_token</code> are HttpOnly — they will
+        <strong>not</strong> appear here.
+      </p>
+    </section>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+    
+</body>
+</html>
