@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     username        TEXT NOT NULL UNIQUE,
     password_hash   TEXT NOT NULL,
     created_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    lasst_login_at  TIMESTAMP,
+    last_login_at  TIMESTAMP,
     login_count     INTEGER NOT NULL DEFAULT 0
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS remember_tokens (
 CREATE TABLE IF NOT EXISTS activity_log(
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id     INTEGER NOT NULL,
-    action      TEXT NOT NULL
+    action      TEXT NOT NULL,
     detail      TEXT,
     timestamp   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
