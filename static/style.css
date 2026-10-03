@@ -1,94 +1,191 @@
-/* ---------- Base ---------- */
+/*Base*/
+
 * { box-sizing: border-box; }
 
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.5;
+  line-height: 1.55;
   transition: background 0.2s, color 0.2s;
+  /* Fallback colors if no theme class is applied yet */
+  background: var(--bg, #fafafa);
+  color: var(--text, #222);
 }
 
 main {
-  max-width: 720px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: 680px;
+  margin: 3rem auto;
+  padding: 0 1.25rem;
 }
 
-h1, h2 { margin-top: 0; }
+h1, h2 { margin: 0 0 1rem; line-height: 1.2; }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.15rem; }
 
-label { display: block; margin-top: 1rem; font-weight: 600; }
-input, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; font: inherit; }
+
+/*Forms*/
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  margin-top: 0.35rem;
+  font: inherit;
+  color: inherit;
+  background: var(--panel, #fff);
+  border: 1px solid var(--border, #ddd);
+  border-radius: 6px;
+}
+
+input:focus, select:focus {
+  outline: 2px solid var(--accent, #3b6ef5);
+  outline-offset: 1px;
+  border-color: var(--accent, #3b6ef5);
+}
+
+label.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+label.checkbox input { width: auto; margin: 0; }
+
+
+/*Buttons — always visible thanks to the fallback color*/
 
 button {
-  margin-top: 1rem;
-  padding: 0.6rem 1rem;
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.6rem 1.1rem;
   border: none;
   border-radius: 6px;
-  background: var(--accent);
-  color: white;
+  background: var(--accent, #3b6ef5);
+  color: #fff;
   font: inherit;
+  font-weight: 600;
   cursor: pointer;
+  transition: opacity 0.15s, transform 0.05s;
 }
+
 button:hover { opacity: 0.9; }
+button:active { transform: translateY(1px); }
 button.danger { background: #d33; }
 
-.hidden { display: none; }
+
+/*Utility classes*/
+
+.hidden { display: none !important; }
+
+
+/*Message banner*/
 
 .message {
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 1rem;
   border-radius: 6px;
   margin-bottom: 1rem;
   background: #f3f3f3;
+  color: #333;
+  font-size: 0.95rem;
 }
-.message.error { background: #ffe0e0; color: #900; }
+.message.error   { background: #ffe0e0; color: #900; }
 .message.success { background: #e0ffe4; color: #060; }
 
+
+/*Panels (user page sections)*/
+
 .panel {
-  border: 1px solid var(--border);
+  border: 1px solid var(--border, #ddd);
   border-radius: 8px;
   padding: 1rem 1.25rem;
   margin-bottom: 1.25rem;
-  background: var(--panel);
+  background: var(--panel, #fff);
 }
 
 .user-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
+.user-header h1 { margin: 0; }
 
-ul { padding-left: 1.25rem; }
-code { background: rgba(0,0,0,0.08); padding: 0 4px; border-radius: 3px; }
-.hint { font-size: 0.85rem; opacity: 0.8; }
 
-/* ---------- Font size classes ---------- */
+/*Lists, code, hints*/
+
+ul { padding-left: 1.25rem; margin: 0.5rem 0; }
+li { margin: 0.2rem 0; }
+
+code {
+  background: rgba(0,0,0,0.08);
+  padding: 0 4px;
+  border-radius: 3px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.9em;
+}
+
+.hint {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  margin-top: 0.5rem;
+}
+
+
+/*Preference: font sizes*/
+
 body.font-small  { font-size: 14px; }
 body.font-medium { font-size: 16px; }
 body.font-large  { font-size: 19px; }
 
-/* ---------- Theme classes ---------- */
+
+/*Preference: themes*/
+
 body.theme-light {
-  --bg: #fafafa;
-  --panel: #ffffff;
+  --bg:     #fafafa;
+  --panel:  #ffffff;
   --border: #ddd;
-  --text: #222;
+  --text:   #222;
   --accent: #3b6ef5;
+
   background: var(--bg);
   color: var(--text);
 }
 
 body.theme-dark {
-  --bg: #181a1f;
-  --panel: #23262d;
+  --bg:     #181a1f;
+  --panel:  #23262d;
   --border: #3a3f48;
-  --text: #eaeaea;
+  --text:   #eaeaea;
   --accent: #5d8bff;
+
   background: var(--bg);
   color: var(--text);
 }
 
-/* ---------- Focus mode accents ---------- */
+/* Make sure inputs and panels inherit the theme in dark mode */
+body.theme-dark input,
+body.theme-dark select {
+  background: #1c1f24;
+  color: var(--text);
+}
+
+
+/* Preference: focus mode accents (these come last so they override the theme accent) */
+
 body.focus-standard { --accent: #3b6ef5; }
 body.focus-deep     { --accent: #8a4dff; }
 body.focus-revision { --accent: #e08a00; }
